@@ -1,0 +1,24 @@
+<div class="float-right">
+  <% if signed_in? %>
+  <%= link_to "(#{current_user.name}) Sign out", signout_path, method: "delete" %>
+  <% else %>
+    <%= link_to 'Sign in', signin_path %>
+  <% end %>
+</div>
+
+<h1>Members Only messages</h1>
+
+<% @messages.each do |message| %>
+  <% if signed_in? %>
+    <p class="float-right">
+      messageed by:
+      <%= message.user.name %>
+    </p>
+  <% end %>
+  <h4 class="float-left"><%=message.title %></h4>  
+  <p class="clear"><%= message.body %></p>
+<% end %>
+
+<% if signed_in? %>
+  <%= link_to "Create a message", new_message_path %>
+<% end %>

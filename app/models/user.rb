@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
+  has_many :messages
   before_create :create_remember_token
   has_secure_password 
   validates :password, length: { minimum: 6 }
+
 
   def User.new_remember_token
     SecureRandom.urlsafe_base64
@@ -13,7 +15,7 @@ class User < ActiveRecord::Base
 
   private
 
-    def create_remember_token
-      self.remember_token = User.digest(User.new_remember_token)
-    end 
+  def create_remember_token
+    self.remember_token = User.digest(User.new_remember_token)
+  end 
 end

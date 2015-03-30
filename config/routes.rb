@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
+  # root 'messages#index'
+  # resources :sessions
+  # resources :messages
+
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signin',  to: 'sessions#new',         via: 'get'
+  match '/signout', to: 'sessions#destroy',     via: 'delete'
+  resources :messages, only: [:new, :create, :index]
   root 'messages#index'
-  resources :sessions
-  resources :messages
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
